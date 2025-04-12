@@ -12,8 +12,10 @@ const orderRoutes = require("./routes/orderRoutes");
 const analyticsRoutes = require("./routes/analyticsRoutes");
 const vendorRoutes = require("./routes/vendorRoutes");
 const inventoryRoutes = require("./routes/inventoryRoutes")
+const disputeRoutes = require('./routes/disputeRoutes');
+const userRoutes = require('./routes/userRoutes');
 
-const { verifyToken, verifyAdmin } = require("./middleware/authMiddleware");
+const { verifyToken, verifyAdmin ,verifyvendortoken,verifyVendorrole } = require("./middleware/authMiddleware");
 
 const app = express();
 connectDB();
@@ -24,6 +26,7 @@ app.use(cookieParser());
 
 
 app.use("/api/auth", authRoutes);
+app.use("/api/auth/vendor",authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart",cartRoutes);
 app.use("/api/coupon", couponRoutes);
@@ -31,6 +34,8 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/analytics", analyticsRoutes);
 app.use("/api/vendor", vendorRoutes);
 app.use("/api/inventory",inventoryRoutes);
+app.use('/api/disputes', disputeRoutes);
+app.use('/api/user', userRoutes);
 
 app.get("/" , async (req,res)=>{
 
@@ -44,9 +49,18 @@ app.get("/api/protected", verifyToken, (req, res) => {
     res.json({ message: " Verified token You have access!" });
   });
 
-  app.get("/api/protected/admin",verifyToken ,(req,res,next) =>{
+  app.get("/api/protected/admin",verifyAdmin ,(req,res,next) =>{
 
     res.json({ message : "verified admin role u have access:"})
+  })
+
+  app.get("/api/protected/vendor", verifyvendortoken, (req, res) => {
+    res.json({ message: " Verified token You have access!" });
+  });
+
+  app.get("/api/protected/vendorrole",verifyvendortoken,verifyVendorrole ,(req,res,next) =>{
+
+    res.json({ message : "verified vendor role u have access:"})
   })
   
 const PORT = process.env.PORT || 5000;

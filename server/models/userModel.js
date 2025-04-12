@@ -5,10 +5,10 @@ const userSchema = new mongoose.Schema({
   email:    { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role:     { type: Number, default: 0 },
-  address:  { type: String } // Address field added (optional)
+  address:  { type: String },
+  fcmTokens:[{ type: String }]      // ← store device tokens token from firebase that we need for the user identification so we can push notifications
 });
 
-const userModel = mongoose.model('userModel', userSchema);
+module.exports = mongoose.model("userModel", userSchema);
 
-module.exports = userModel;
 

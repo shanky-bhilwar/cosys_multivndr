@@ -1,0 +1,110 @@
+/* Full center alignment */
+.dispute-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #e0f7fa, #f1f8e9);
+    padding: 1rem;
+    margin-top: -30px; /* adjust value as needed */
+    
+  }
+  
+  /* Form Styling */
+  .dispute-form {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 360px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+   
+  }
+  
+  /* Headings */
+  .dispute-form h2 {
+    margin-bottom: 0.3rem;
+    font-size: 1.4rem;
+    color: #1f2937;
+    text-align: center;
+  }
+  
+  .dispute-subtext {
+    color: #6b7280;
+    font-size: 0.85rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  /* Input & Textarea Fields */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.9rem;
+  }
+  
+  .form-group label {
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #374151;
+  }
+  
+  .dispute-form input,
+  .dispute-form textarea {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.6rem;
+    font-size: 0.9rem;
+    background-color: #f9fafb;
+    transition: all 0.3s ease;
+    resize: none;
+  }
+  
+  .dispute-form input:focus,
+  .dispute-form textarea:focus {
+    border-color: #34d399;
+    background-color: #ecfdf5;
+    outline: none;
+  }
+  
+  /* Submit Button */
+  .dispute-form button {
+    width: 100%;
+    padding: 0.7rem;
+    background-color: #34d399;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 0.6rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dispute-form button:hover {
+    background-color: #10b981;
+  }
+
+ 
+  
+  
+  /* Success Message */
+  .success-message {
+    margin-top: 0.9rem;
+    color: #10b981;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+  
+  /* Responsive */
+  @media (max-width: 500px) {
+    .dispute-form {
+      padding: 1.2rem;
+    }
+  
+    .dispute-form h2 {
+      font-size: 1.3rem;
+    }
+  }
+  

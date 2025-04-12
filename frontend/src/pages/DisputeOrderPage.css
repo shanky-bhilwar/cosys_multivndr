@@ -1,0 +1,77 @@
+.dispute-container {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .dispute-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #222;
+    text-align: center;
+  }
+  
+  .dispute-loading,
+  .dispute-error,
+  .dispute-empty {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    margin-top: 2rem;
+  }
+  
+  .dispute-list {
+    display: grid;
+    gap: 1.5rem;
+  }
+  
+  .dispute-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+    background-color: #fff;
+    transition: transform 0.2s ease;
+  }
+  
+  .dispute-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .dispute-image {
+    width: 90px;
+    height: 90px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+  }
+  
+  .dispute-details {
+    flex: 1;
+  }
+  
+  .dispute-product {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+  
+  .dispute-button {
+    padding: 0.6rem 1.2rem;
+    background-color: #69adf5;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+  
+  .dispute-button:hover {
+    background-color: #ec0000;
+  }
+  

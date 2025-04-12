@@ -4,7 +4,8 @@ const {
   getVendorProductsController,
   getVendorSalesController,
   getVendorOrdersController,
-  getVendorStatsController
+  getVendorStatsController,
+  getadmincommissioncontroller
 } = require("../controllers/vendorController");
 
 const router = express.Router();
@@ -20,5 +21,7 @@ router.get("/:vendorId/orders", getVendorOrdersController);
 
 // 4. Summary stats: productCount, orderCount, totalRevenue
 router.get("/:vendorId/stats", getVendorStatsController);
+
+router.get("/:vendorId/commission",getadmincommissioncontroller)
 
 module.exports = router;

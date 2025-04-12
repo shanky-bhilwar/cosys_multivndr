@@ -1,17 +1,32 @@
 const Order = require("../models/orderModel");
 
 /**
- * Controller to track total revenue.
- * It sums up the totalAmount from all orders that have a completed paymentStatus.
+ * Controller to track total revenue, admin commission, and net revenue.
  */
 exports.trackRevenueController = async (req, res) => {
   try {
     const revenueAggregation = await Order.aggregate([
-      { $match: { paymentStatus: "completed" } }, // Consider only completed orders
+      { $match: { paymentStatus: "completed" } },
       { $group: { _id: null, totalRevenue: { $sum: "$totalAmount" } } }
     ]);
-    const totalRevenue = revenueAggregation.length ? revenueAggregation[0].totalRevenue : 0;
-    res.status(200).json({ totalRevenue });
+
+    // Gross revenue
+    let totalRevenue = revenueAggregation.length
+      ? revenueAggregation[0].totalRevenue
+      : 0;
+
+    // Admin takes 10%
+    let adminCommission = totalRevenue * 0.1;
+
+    // Vendor keeps the rest
+    let netRevenue = totalRevenue - adminCommission;
+
+    // Format to 2 decimals
+    totalRevenue     = parseFloat(totalRevenue.toFixed(2));
+    adminCommission  = parseFloat(adminCommission.toFixed(2));
+    netRevenue       = parseFloat(netRevenue.toFixed(2));
+
+    res.status(200).json({ totalRevenue, adminCommission, netRevenue });
   } catch (error) {
     console.error("Error tracking revenue:", error);
     res.status(500).json({ error: "Failed to track revenue" });

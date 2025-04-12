@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import { Link } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 import './Homepage.css';
 
 const products = [
@@ -15,6 +16,19 @@ const products = [
 ];
 
 function Homepage() {
+
+// we adding our token here manually to work on dispute resolution task cz we need user id which we will take from here
+
+useEffect(() => {
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjYwYzkxNTU0ODZjMDFmYTIxZjUyMSIsImlhdCI6MTc0NDE3ODM0NSwiZXhwIjoxNzQ0MjY0NzQ1fQ.8g9dWh_oYZMlm3uvkq8ZLcPXGYNOEQ3HXnjmh4CkXlM"; // replace with actual token
+    localStorage.setItem("token", token);
+
+    
+  }, []);
+//   -------------------------dispute resolution part---------------------------------------------------
+
+ 
+
     const [filteredCategory, setFilteredCategory] = useState("All");
     const [filteredPrice, setFilteredPrice] = useState([0, 100]);
     const [searchQuery, setSearchQuery] = useState("");

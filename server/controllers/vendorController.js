@@ -86,11 +86,7 @@ exports.getVendorSalesController = async (req, res) => {
  * List all orders containing this vendor’s products,
  * and only include the items belonging to this vendor.
  */
-/**
- * GET /api/vendor/:vendorId/orders
- * Returns all orders (completed & pending) for this vendor,
- * including only the items that belong to them.
- */
+
 exports.getVendorOrdersController = async (req, res) => {
   try {
     const { vendorId } = req.params;
@@ -139,26 +135,28 @@ exports.getVendorOrdersController = async (req, res) => {
 };
 
 
+
+
+
+
 /**
- * GET /vendor/:vendorId/stats
- * Summary stats: productCount, orderCount, totalRevenue
+ * GET /api/vendor/:vendorId/orders
+ * Returns all orders (completed & pending) for this vendor,
+ * including only the items that belong to them.
  */
-exports.getVendorStatsController = async (req, res) => {
+
+  exports.getVendorStatsController = async (req, res) => {
   try {
     const { vendorId } = req.params;
-
     const vendorObjectId = new mongoose.Types.ObjectId(vendorId);
 
-    // Find the vendor and get name
     const vendor = await Vendor.findById(vendorObjectId).select("name role");
     if (!vendor || vendor.role !== 1) {
       return res.status(403).json({ error: "Invalid vendor" });
     }
 
-    // 1. Product count
     const productCount = await Product.countDocuments({ vendor: vendorObjectId });
 
-    // 2. Unique Order count
     const ordersAgg = await Order.aggregate([
       { $unwind: "$items" },
       {
@@ -167,12 +165,11 @@ exports.getVendorStatsController = async (req, res) => {
           paymentStatus: "completed"
         }
       },
-      { $group: { _id: "$_id" } },
+      { $group: { _id: "$orderId" } },
       { $count: "orderCount" }
     ]);
     const orderCount = ordersAgg[0]?.orderCount || 0;
 
-    // 3. Total revenue
     const revenueAgg = await Order.aggregate([
       { $unwind: "$items" },
       {
@@ -194,7 +191,6 @@ exports.getVendorStatsController = async (req, res) => {
     ]);
     const totalRevenue = revenueAgg[0]?.totalRevenue || 0;
 
-    // Final response
     res.status(200).json({
       vendor: {
         _id: vendor._id,
@@ -204,9 +200,43 @@ exports.getVendorStatsController = async (req, res) => {
       orderCount,
       totalRevenue
     });
-
   } catch (error) {
     console.error("Error fetching vendor stats:", error);
     res.status(error.status || 500).json({ error: error.message });
+  }
+};
+
+
+
+// new controller that we are made for the commission management for admin and vendor
+
+
+// GET /api/vendor/:vendorId/commission
+exports.getadmincommissioncontroller = async (req, res) => {
+  try {
+    const { vendorId } = req.params;
+
+    // Get all completed orders of this vendor
+    const orders = await Order.find({ vendor: vendorId, paymentStatus: "completed" });
+
+    let totalRevenue = 0;
+    let totalCommission = 0;
+    const commissionRate = 0.1; // 10% commission
+
+    orders.forEach((order) => {
+      totalRevenue += order.totalAmount;
+      totalCommission += order.totalAmount * commissionRate;
+    });
+
+    const netRevenue = totalRevenue - totalCommission;
+
+    res.json({
+      totalRevenue,
+      adminCommission: totalCommission,
+      netRevenue
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
   }
 };

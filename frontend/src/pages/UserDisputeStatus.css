@@ -1,0 +1,118 @@
+/* UserDisputeStatus.css */
+
+/* Wrapper */
+.user-disputes-wrapper {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Heading */
+  .user-disputes-wrapper h2 {
+    font-size: 2rem;
+    color: #222;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;
+  }
+  
+  /* Grid layout */
+  .disputes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  
+  /* Card */
+  .dispute-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .dispute-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  /* Thumbnail */
+  .product-thumb {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  
+  /* Info */
+  .dispute-info {
+    padding: 16px;
+    text-align: center;
+  }
+  
+  .dispute-info p {
+    margin: 8px 0;
+    font-size: 0.95rem;
+    color: #444;
+  }
+  
+  .dispute-info p strong {
+    color: #111;
+  }
+  
+  /* Status Badge Enhanced Visibility */
+  .status-badge {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-top: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
+  /* Pending – amber/yellow */
+  .status-badge.pending {
+    background-color: #fffae6;
+    color: #b36b00;
+    border: 1px solid #ffd54f;
+  }
+  
+  /* Resolved – vibrant green */
+  .status-badge.resolved {
+    background-color: #e6ffed;
+    color: #1a7f37;
+    border: 1px solid #4caf50;
+  }
+  
+  /* Rejected – strong red */
+  .status-badge.rejected {
+    background-color: #ffe6e6;
+    color: #a30000;
+    border: 1px solid #f44336;
+  }
+  
+  /* No disputes message */
+  .no-disputes {
+    text-align: center;
+    color: #666;
+    font-size: 1rem;
+    margin-top: 40px;
+  }
+  
+  /* Responsive tweaks */
+  @media (max-width: 600px) {
+    .product-thumb {
+      height: 140px;
+    }
+  
+    .dispute-info p {
+      font-size: 0.9rem;
+    }
+  }
+  
